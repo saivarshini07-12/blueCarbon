@@ -1,0 +1,27 @@
+{
+  "blockchain_enabled": false,
+  "network": "ganache",
+  "rpc_url": "http://127.0.0.1:8545",
+  "contract_address": "",
+  "private_key": "",
+  "ipfs_gateway": "https://ipfs.io/ipfs/",
+  "verification_threshold": 2,
+  "default_carbon_price": 50.0,
+  "supported_ecosystems": [
+    "mangrove",
+    "seagrass",
+    "salt_marsh",
+    "coastal_wetland"
+  ],
+  "verification_requirements": {
+    "min_verifiers": 2,
+    "max_verification_age_days": 365,
+    "required_data_fields": [
+      "area_measurement",
+      "biomass_assessment",
+      "soil_carbon_measurement",
+      "gps_coordinates",
+      "photographic_evidence"
+    ]
+  }
+}

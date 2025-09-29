@@ -1,0 +1,21 @@
+# Streamlit Cloud compatible requirements - Minimal AI setup
+streamlit>=1.46.1
+python-dotenv>=1.1.1
+pandas>=2.0.0
+plotly>=6.2.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+fpdf2>=2.7.0
+xlsxwriter>=3.2.5
+
+# Core AI dependencies only - No ChromaDB dependencies
+crewai>=0.140.0
+langchain-groq>=0.3.5
+
+# Blockchain dependencies (optional)
+web3>=6.0.0
+eth-account>=0.9.0
+
+# Backend API dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
