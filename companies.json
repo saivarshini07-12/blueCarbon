@@ -1,0 +1,20 @@
+{
+  "0fa90bfc52e7": {
+    "company_id": "0fa90bfc52e7",
+    "company_name": "andhra",
+    "email": "andhra@gmail.com",
+    "industry": "Manufacturing",
+    "location": "Mumbai, India",
+    "size": "Startup (1-10 employees)",
+    "contact_person": "1234567890",
+    "phone": "",
+    "website": "",
+    "registration_date": "2025-09-17T19:37:20.235220",
+    "initial_carbon_credits": 0.0,
+    "total_emissions": 0.0,
+    "is_active": true,
+    "blockchain_address": "0x0fa90bfc52e7",
+    "verification_status": "pending",
+    "carbon_credits": 100.0
+  }
+}

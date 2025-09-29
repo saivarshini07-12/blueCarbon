@@ -1,0 +1,52 @@
+[[
+
+  {  {
+
+    "date": "2024-09-01",    "date": 
+    "business_unit": "Operations",
+    "project": "Facility A",
+    "scope": "Scope 1",
+    "category": "Stationary Combustion",
+    "activity": "Natural Gas Consumption",
+    "country": "India",
+    "facility": "Mumbai Office",
+    "responsible_person": "John Doe",
+    "quantity": 1500.0,
+    "unit": "cubic meters",
+    "emission_factor": 2.03,
+    "emissions_kgCO2e": 3045.0,
+    "notes": "Monthly natural gas consumption for heating"
+  },
+  {
+    "date": "2024-09-02",
+    "business_unit": "Transport",
+    "project": "Fleet Management",
+    "scope": "Scope 1",
+    "category": "Mobile Combustion",
+    "activity": "Diesel Vehicle Operation",
+    "country": "India",
+    "facility": "Delhi Branch",
+    "responsible_person": "Jane Smith",
+    "quantity": 500.0,
+    "unit": "liters",
+    "emission_factor": 2.68,
+    "emissions_kgCO2e": 1340.0,
+    "notes": "Fleet fuel consumption"
+  },
+  {
+    "date": "2024-09-03",
+    "business_unit": "Operations",
+    "project": "Facility B",
+    "scope": "Scope 2",
+    "category": "Purchased Electricity",
+    "activity": "Grid Electricity Consumption",
+    "country": "India",
+    "facility": "Bangalore Office",
+    "responsible_person": "Mike Johnson",
+    "quantity": 2000.0,
+    "unit": "kWh",
+    "emission_factor": 0.82,
+    "emissions_kgCO2e": 1640.0,
+    "notes": "Monthly electricity consumption"
+  }
+]

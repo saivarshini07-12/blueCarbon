@@ -1,0 +1,14 @@
+{
+  "credits_earned": 100.0,
+  "credits_purchased": 0.0,
+  "credits_used": 0.0,
+  "credits_available": 100.0,
+  "transactions": [
+    {
+      "type": "earned",
+      "amount": 100.0,
+      "reason": "Welcome bonus for new registration",
+      "date": "2025-09-17T19:37:20.246674"
+    }
+  ]
+}
