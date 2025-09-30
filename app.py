@@ -24,6 +24,7 @@ from io import BytesIO
 # Import blockchain MRV system
 from blockchain_mrv import blockchain_mrv, BlueCarbonProject, VerificationRecord, CarbonCredit
 from company_manager import company_manager
+from emission_factors import calculate_blue_carbon_sequestration, get_blue_carbon_rate_info
 
 # Load environment variables
 load_dotenv()
@@ -4947,6 +4948,17 @@ elif st.session_state.active_page == "Blue Carbon":
     with tab1:
         st.subheader("Register New Blue Carbon Project")
         
+        # Information about automatic calculation
+        st.info("""
+        🧮 **Smart CO2 Sequestration Calculator**  
+        CO2 sequestration is now automatically calculated based on:
+        - **Area**: Project size in hectares
+        - **Ecosystem Type**: Different ecosystems have different sequestration rates
+        - **Site Quality**: Conditions affecting carbon capture efficiency
+        
+        This ensures accurate, science-based estimates using IPCC guidelines for coastal ecosystems.
+        """)
+        
         with st.form("register_project"):
             col1, col2 = st.columns(2)
             
@@ -4960,9 +4972,50 @@ elif st.session_state.active_page == "Blue Carbon":
             
             with col2:
                 owner = st.text_input("Project Owner*", value="company_demo_001", help="Company or organization address")
-                estimated_sequestration = st.number_input("Estimated CO2 Sequestration (tons/year)*", 
-                                                        min_value=0.1, step=0.1,
-                                                        help="Annual carbon sequestration estimate")
+                
+                # Site quality assessment for better estimates
+                st.markdown("**Site Conditions Assessment:**")
+                site_quality = st.selectbox("Site Quality", 
+                                          ["Poor (0.5x)", "Average (1.0x)", "Good (1.2x)", "Excellent (1.5x)"],
+                                          index=1,
+                                          help="Site conditions affect sequestration rates")
+                
+                # Convert site quality to factor
+                quality_factors = {"Poor (0.5x)": 0.5, "Average (1.0x)": 1.0, "Good (1.2x)": 1.2, "Excellent (1.5x)": 1.5}
+                quality_factor = quality_factors[site_quality]
+                
+                # Auto-calculate sequestration
+                if area > 0 and ecosystem_type:
+                    calc_result = calculate_blue_carbon_sequestration(area, ecosystem_type, quality_factor)
+                    
+                    if calc_result:
+                        estimated_sequestration = calc_result["estimated_sequestration"]
+                        
+                        # Display calculation details
+                        st.markdown("**📊 Automatic CO2 Sequestration Calculation:**")
+                        st.info(f"""
+                        **Calculated Rate:** {estimated_sequestration} tons CO2/year
+                        
+                        **Calculation Details:**
+                        - Base rate: {calc_result['base_rate']} tons CO2/hectare/year
+                        - Area: {area} hectares  
+                        - Quality factor: {quality_factor}x
+                        - Range: {calc_result['min_estimate']} - {calc_result['max_estimate']} tons/year
+                        
+                        **Ecosystem Info:** {calc_result['description']}
+                        """)
+                        
+                        # Show the calculated value in a disabled input (for visual consistency)
+                        st.number_input("Estimated CO2 Sequestration (tons/year)*", 
+                                      value=estimated_sequestration,
+                                      disabled=True,
+                                      help="Automatically calculated based on area, ecosystem type, and site quality")
+                    else:
+                        estimated_sequestration = 0.0
+                        st.error("Could not calculate sequestration for selected ecosystem type")
+                else:
+                    estimated_sequestration = 0.0
+                    st.info("Enter area and select ecosystem type to auto-calculate CO2 sequestration")
                 
                 # Additional project data
                 st.markdown("**Additional Project Details:**")

@@ -74,6 +74,83 @@ EMISSION_FACTORS = {
     },
 }
 
+# Blue Carbon Sequestration Rates (tons CO2/hectare/year)
+# Based on scientific literature and IPCC guidelines for coastal ecosystems
+BLUE_CARBON_SEQUESTRATION_RATES = {
+    "mangrove": {
+        "rate": 0.50,  # tons CO2/hectare/year
+        "range": (0.3, 0.8),  # (min, max) for different conditions
+        "description": "Mangrove forests - high sequestration in biomass and soil"
+    },
+    "seagrass": {
+        "rate": 0.35,  # tons CO2/hectare/year
+        "range": (0.2, 0.6),
+        "description": "Seagrass meadows - significant below-ground carbon storage"
+    },
+    "salt_marsh": {
+        "rate": 0.30,  # tons CO2/hectare/year
+        "range": (0.15, 0.5),
+        "description": "Salt marshes - efficient carbon sequestration in sediments"
+    },
+    "coastal_wetland": {
+        "rate": 0.40,  # tons CO2/hectare/year
+        "range": (0.25, 0.65),
+        "description": "Mixed coastal wetlands - variable but substantial sequestration"
+    }
+}
+
+def calculate_blue_carbon_sequestration(area_hectares, ecosystem_type, quality_factor=1.0):
+    """
+    Calculate estimated CO2 sequestration for blue carbon projects.
+    
+    Args:
+        area_hectares (float): Project area in hectares
+        ecosystem_type (str): Type of blue carbon ecosystem
+        quality_factor (float): Quality adjustment factor (0.5-1.5) based on site conditions
+        
+    Returns:
+        dict: Dictionary containing calculation results
+    """
+    if ecosystem_type not in BLUE_CARBON_SEQUESTRATION_RATES:
+        return None
+    
+    base_rate = BLUE_CARBON_SEQUESTRATION_RATES[ecosystem_type]["rate"]
+    rate_range = BLUE_CARBON_SEQUESTRATION_RATES[ecosystem_type]["range"]
+    description = BLUE_CARBON_SEQUESTRATION_RATES[ecosystem_type]["description"]
+    
+    # Apply quality factor (constrained between 0.5 and 1.5)
+    quality_factor = max(0.5, min(1.5, quality_factor))
+    
+    # Calculate sequestration
+    estimated_sequestration = area_hectares * base_rate * quality_factor
+    min_estimate = area_hectares * rate_range[0] * quality_factor
+    max_estimate = area_hectares * rate_range[1] * quality_factor
+    
+    return {
+        "estimated_sequestration": round(estimated_sequestration, 2),
+        "min_estimate": round(min_estimate, 2),
+        "max_estimate": round(max_estimate, 2),
+        "base_rate": base_rate,
+        "ecosystem_type": ecosystem_type,
+        "area_hectares": area_hectares,
+        "quality_factor": quality_factor,
+        "description": description
+    }
+
+def get_blue_carbon_rate_info(ecosystem_type):
+    """
+    Get sequestration rate information for a specific ecosystem type.
+    
+    Args:
+        ecosystem_type (str): Type of blue carbon ecosystem
+        
+    Returns:
+        dict: Rate information or None if not found
+    """
+    if ecosystem_type in BLUE_CARBON_SEQUESTRATION_RATES:
+        return BLUE_CARBON_SEQUESTRATION_RATES[ecosystem_type]
+    return None
+
 # Scope categories
 SCOPE_CATEGORIES = {
     "Scope 1": [
